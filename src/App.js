@@ -21,8 +21,15 @@ function App() {
 
   function updateValue(pos) {
 
+    console.log(pos);
+
     setGameData(gameData.map(val=>{
-      if(val.id===pos){
+      if(val.id===pos && val.value===""){
+        if (symbol === "X") {
+          setSymbol(()=>"O");
+        } else if (symbol === "O") {
+          setSymbol(()=>"X");
+        }
         return {...val, value:symbol}
       }
       else{
@@ -30,14 +37,11 @@ function App() {
       }
     }))
     
-    if (symbol === "X") {
-      setSymbol("O");
-    } else if (symbol === "O") {
-      setSymbol("X");
-    }
+    
   }
 
   function reset(){
+    setSymbol("X")
     setGameData(()=>template_game_data);
   }
 
@@ -55,6 +59,9 @@ function App() {
             </div>
           ))}
         </div>
+
+        <h3>Player {symbol} turn</h3>
+
       </div>
 
       <button className="restart-button" type="submit" onClick={()=>reset()}>
